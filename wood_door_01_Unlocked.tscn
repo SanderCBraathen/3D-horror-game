@@ -1,25 +1,25 @@
-[gd_scene load_steps=18 format=3 uid="uid://kdixwllajs7b"]
+[gd_scene load_steps=12 format=3 uid="uid://kdixwllajs7b"]
 
 [ext_resource type="Script" path="res://Wood_Door_01_Unlocked.gd" id="1_y16di"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jl7um"]
 size = Vector3(2, 2.5, 0.1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0y2af"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_makyy"]
 albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_vmhmq"]
-material = SubResource("StandardMaterial3D_0y2af")
+material = SubResource("StandardMaterial3D_makyy")
 size = Vector3(0.1, 0.2, 0.3)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pu53v"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_op21n"]
 albedo_color = Color(0.666711, 0.354957, 0.177402, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_rpbxp"]
-material = SubResource("StandardMaterial3D_pu53v")
+material = SubResource("StandardMaterial3D_op21n")
 size = Vector3(2, 2.5, 0.1)
 
-[sub_resource type="Animation" id="Animation_ntxmv"]
+[sub_resource type="Animation" id="Animation_nsg27"]
 resource_name = "Close"
 length = 1.5
 tracks/0/type = "value"
@@ -35,7 +35,7 @@ tracks/0/keys = {
 "values": [Vector3(0, 1.48353, 0), Vector3(0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_xas1t"]
+[sub_resource type="Animation" id="Animation_0wsju"]
 resource_name = "Locked_open_attempt"
 length = 0.4
 tracks/0/type = "value"
@@ -45,13 +45,13 @@ tracks/0/path = NodePath("Hinge:rotation")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, 0), Vector3(0, 0.0349066, 0), Vector3(0, 0, 0), Vector3(0, 0.0174533, 0), Vector3(0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_2x00b"]
+[sub_resource type="Animation" id="Animation_thi7p"]
 resource_name = "Open"
 length = 2.0
 tracks/0/type = "value"
@@ -67,7 +67,7 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 1.48353, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_jds83"]
+[sub_resource type="Animation" id="Animation_k87se"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -82,39 +82,13 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_crq7h"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_usuqw"]
 _data = {
-"Close": SubResource("Animation_ntxmv"),
-"Locked_open_attempt": SubResource("Animation_xas1t"),
-"Open": SubResource("Animation_2x00b"),
-"RESET": SubResource("Animation_jds83")
+"Close": SubResource("Animation_nsg27"),
+"Locked_open_attempt": SubResource("Animation_0wsju"),
+"Open": SubResource("Animation_thi7p"),
+"RESET": SubResource("Animation_k87se")
 }
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_q5a2x"]
-animation = &"Close"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n7dnw"]
-animation = &"Locked_open_attempt"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5vffq"]
-animation = &"Locked_open_attempt"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u6j4u"]
-animation = &"Open"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e12cw"]
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_t2wfo"]
-states/Close/node = SubResource("AnimationNodeAnimation_q5a2x")
-states/Close/position = Vector2(321, 194)
-states/Locked_open_attempt/node = SubResource("AnimationNodeAnimation_5vffq")
-states/Locked_open_attempt/position = Vector2(508, 72)
-"states/Locked_open_attempt 2/node" = SubResource("AnimationNodeAnimation_n7dnw")
-"states/Locked_open_attempt 2/position" = Vector2(524, 130)
-states/Open/node = SubResource("AnimationNodeAnimation_u6j4u")
-states/Open/position = Vector2(321, 50)
-states/Start/position = Vector2(202, 100)
-transitions = ["Start", "Locked_open_attempt", SubResource("AnimationNodeStateMachineTransition_e12cw")]
 
 [node name="Wood_Door_01_Unlocked" type="Node3D"]
 
@@ -140,12 +114,8 @@ mesh = SubResource("BoxMesh_rpbxp")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_crq7h")
+"": SubResource("AnimationLibrary_usuqw")
 }
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_t2wfo")
-anim_player = NodePath("../AnimationPlayer")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
