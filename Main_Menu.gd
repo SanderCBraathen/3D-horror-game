@@ -39,4 +39,4 @@ func lightning_sequence():
 
 
 func _on_start_game_pressed():
-	change_scene("res://building.tscn")
+	change_scene("res://main_map_template.tscn")
