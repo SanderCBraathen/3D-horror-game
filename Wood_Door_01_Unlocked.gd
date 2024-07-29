@@ -1,30 +1,39 @@
 extends Interactable
 
 var playback : AnimationNodeStateMachinePlayback
-var is_open := false
+var open = false
+var closed = true
 var locked = false
 var can_interact = true
 
 @onready var timer = $"../../Timer"
+@onready var animationplayer = $"../../AnimationPlayer"
 
 
 func _ready():
-	playback = $"../../AnimationTree".get("parameters/playback")
+	pass
+	#playback = $"../../AnimationTree".get("parameters/playback")
 
 
 func _on_interacted(body):
 	if can_interact == true:
 		if locked == false:
-			is_open = not is_open
-			if is_open:
+			if open == false:
 				can_interact = false
-				playback.travel("Open")
+				open = true
+				closed = false
+				animationplayer.play("Open")
 				await get_tree().create_timer(2.5).timeout
 				can_interact = true
-			else:
+			if closed == false:
 				can_interact = false
-				playback.travel("Close")
+				animationplayer.play("Close")
+				closed = true
+				open = false
 				await get_tree().create_timer(1.5).timeout
 				can_interact = true
 		else:
-			$"../../AnimationPlayer".play("locked_open_attempt")
+			can_interact = false
+			animationplayer.play("Locked_open_attempt")
+			await get_tree().create_timer(0.5).timeout
+			can_interact = true
