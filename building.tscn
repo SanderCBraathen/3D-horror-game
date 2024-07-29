@@ -1,9 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://cph402x5geg5"]
+[gd_scene load_steps=36 format=3 uid="uid://cph402x5geg5"]
 
 [ext_resource type="Texture2D" uid="uid://brkw3brv5em7d" path="res://textures/Poliigon_SlateFloorTile_7657/2K/Poliigon_SlateFloorTile_7657_BaseColor.jpg" id="1_377xp"]
 [ext_resource type="PackedScene" uid="uid://bey2o2g8p2lh1" path="res://Simple 1st person/player.tscn" id="1_crwn4"]
 [ext_resource type="Texture2D" uid="uid://c3v6l126wjggb" path="res://textures/Poliigon_SlateFloorTile_7657/2K/Poliigon_SlateFloorTile_7657_Normal.jpg" id="2_baeod"]
-[ext_resource type="PackedScene" uid="uid://kdixwllajs7b" path="res://wood_door_01_Unlocked.tscn" id="4_icn2c"]
+[ext_resource type="Script" path="res://Wood_Door_01_Unlocked.gd" id="4_jl7nn"]
+[ext_resource type="Script" path="res://Exit.gd" id="5_jq101"]
+[ext_resource type="Script" path="res://exit_door.gd" id="6_24h6u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g8qjn"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -41,6 +43,184 @@ size = Vector2(50, 200)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_4b7vy"]
 data = PackedVector3Array(25, 0, 100, -25, 0, 100, 25, 0, -100, -25, 0, 100, -25, 0, -100, 25, 0, -100)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_jl7um"]
+size = Vector3(2, 2.5, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0y2af"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vmhmq"]
+material = SubResource("StandardMaterial3D_0y2af")
+size = Vector3(0.1, 0.2, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ddmc8"]
+albedo_color = Color(0.501546, 0.221316, 0.166057, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rpbxp"]
+material = SubResource("StandardMaterial3D_ddmc8")
+size = Vector3(2, 2.5, 0.1)
+
+[sub_resource type="Animation" id="Animation_ntxmv"]
+resource_name = "Close"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.48353, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xas1t"]
+resource_name = "Locked_open_attempt"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.0349066, 0), Vector3(0, 0, 0), Vector3(0, 0.0174533, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2x00b"]
+resource_name = "Open"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.48353, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jds83"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_crq7h"]
+_data = {
+"Close": SubResource("Animation_ntxmv"),
+"Locked_open_attempt": SubResource("Animation_xas1t"),
+"Open": SubResource("Animation_2x00b"),
+"RESET": SubResource("Animation_jds83")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2u47o"]
+size = Vector3(2.07617, 3.19458, 4.50964)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_frb1i"]
+size = Vector3(2, 2.5, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1kx8b"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dhye1"]
+material = SubResource("StandardMaterial3D_1kx8b")
+size = Vector3(0.1, 0.2, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tpqsn"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_g0u4f"]
+material = SubResource("StandardMaterial3D_tpqsn")
+size = Vector3(2, 2.5, 0.1)
+
+[sub_resource type="Animation" id="Animation_nsg27"]
+resource_name = "Close"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.48353, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0wsju"]
+resource_name = "Locked_open_attempt"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.0349066, 0), Vector3(0, 0, 0), Vector3(0, 0.0174533, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_thi7p"]
+resource_name = "Open"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.48353, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_k87se"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_usuqw"]
+_data = {
+"Close": SubResource("Animation_nsg27"),
+"Locked_open_attempt": SubResource("Animation_0wsju"),
+"Open": SubResource("Animation_thi7p"),
+"RESET": SubResource("Animation_k87se")
+}
+
 [node name="Building" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -50,7 +230,7 @@ environment = SubResource("Environment_mff53")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Player" parent="." instance=ExtResource("1_crwn4")]
+[node name="Player" parent="." groups=["player"] instance=ExtResource("1_crwn4")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.003, 1, -96.183)
 MOUSE_SENSITIVITY = 0.1
 
@@ -71,5 +251,72 @@ mesh = SubResource("PlaneMesh_rhe8k")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_4b7vy")
 
-[node name="Wood_Door_01_Unlocked" parent="." instance=ExtResource("4_icn2c")]
+[node name="Wood_Door_01_Unlocked" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 1.25, -97)
+
+[node name="Hinge" type="Node3D" parent="Wood_Door_01_Unlocked"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wood_Door_01_Unlocked/Hinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+script = ExtResource("4_jl7nn")
+prompt_message = " "
+prompt_input = "E"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wood_Door_01_Unlocked/Hinge/StaticBody3D"]
+shape = SubResource("BoxShape3D_jl7um")
+
+[node name="Knob" type="MeshInstance3D" parent="Wood_Door_01_Unlocked/Hinge/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76923, -0.209894, 0)
+mesh = SubResource("BoxMesh_vmhmq")
+skeleton = NodePath("../Door")
+
+[node name="Door" type="MeshInstance3D" parent="Wood_Door_01_Unlocked/Hinge/StaticBody3D"]
+mesh = SubResource("BoxMesh_rpbxp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Wood_Door_01_Unlocked"]
+libraries = {
+"": SubResource("AnimationLibrary_crq7h")
+}
+
+[node name="Timer" type="Timer" parent="Wood_Door_01_Unlocked"]
+wait_time = 2.0
+
+[node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("5_jq101")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.4005, 1.09729, -92.3167)
+shape = SubResource("BoxShape3D_2u47o")
+
+[node name="Steel_door_01_exit" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13.8512, 1.25, -92.435)
+
+[node name="Hinge" type="Node3D" parent="Steel_door_01_exit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Steel_door_01_exit/Hinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+script = ExtResource("6_24h6u")
+prompt_message = " "
+prompt_input = "E"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Steel_door_01_exit/Hinge/StaticBody3D"]
+shape = SubResource("BoxShape3D_frb1i")
+
+[node name="Knob" type="MeshInstance3D" parent="Steel_door_01_exit/Hinge/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76923, -0.209894, 0)
+mesh = SubResource("BoxMesh_dhye1")
+skeleton = NodePath("../Door")
+
+[node name="Door" type="MeshInstance3D" parent="Steel_door_01_exit/Hinge/StaticBody3D"]
+mesh = SubResource("BoxMesh_g0u4f")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Steel_door_01_exit"]
+libraries = {
+"": SubResource("AnimationLibrary_usuqw")
+}
+
+[connection signal="interacted" from="Wood_Door_01_Unlocked/Hinge/StaticBody3D" to="Wood_Door_01_Unlocked/Hinge/StaticBody3D" method="_on_interacted"]
+[connection signal="player_has_exited" from="Area3D" to="Steel_door_01_exit/Hinge/StaticBody3D" method="_on_area_3d_player_has_exited"]
+[connection signal="interacted" from="Steel_door_01_exit/Hinge/StaticBody3D" to="Steel_door_01_exit/Hinge/StaticBody3D" method="_on_interacted"]
