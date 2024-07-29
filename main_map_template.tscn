@@ -1,7 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://bik8r66p6inv6"]
+[gd_scene load_steps=36 format=3 uid="uid://bik8r66p6inv6"]
 
 [ext_resource type="PackedScene" uid="uid://bey2o2g8p2lh1" path="res://Simple 1st person/player.tscn" id="1_dtiux"]
 [ext_resource type="PackedScene" uid="uid://bi7ldrb8x1tq0" path="res://Steel_door_01_exit.tscn" id="2_suvle"]
+[ext_resource type="Texture2D" uid="uid://brkw3brv5em7d" path="res://textures/Poliigon_SlateFloorTile_7657/2K/Poliigon_SlateFloorTile_7657_BaseColor.jpg" id="2_syt3e"]
+[ext_resource type="Texture2D" uid="uid://cdol5swpvv4f3" path="res://textures/Poliigon_SlateFloorTile_7657/2K/Poliigon_SlateFloorTile_7657_ORM.jpg" id="3_lxsop"]
+[ext_resource type="Script" path="res://Storage_Room_Door.gd" id="4_nyknk"]
+[ext_resource type="Script" path="res://BedRoom_Door.gd" id="5_gqgvw"]
+[ext_resource type="Script" path="res://Start_lock_door_02.gd" id="5_qxq0v"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xcu5l"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -19,6 +24,199 @@ glow_enabled = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xpuyp"]
 albedo_color = Color(0.29219, 0.29219, 0.29219, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_038og"]
+albedo_color = Color(0.539045, 0.257279, 0.0867418, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i6plp"]
+albedo_texture = ExtResource("2_syt3e")
+roughness_texture = ExtResource("3_lxsop")
+normal_enabled = true
+normal_scale = 5.0
+normal_texture = ExtResource("3_lxsop")
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_frb1i"]
+size = Vector3(2, 2.5, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1kx8b"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dhye1"]
+material = SubResource("StandardMaterial3D_1kx8b")
+size = Vector3(0.1, 0.2, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_725gu"]
+albedo_color = Color(0.103744, 0.103744, 0.103744, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qy7x3"]
+material = SubResource("StandardMaterial3D_725gu")
+size = Vector3(2, 2.5, 0.1)
+
+[sub_resource type="Animation" id="Animation_nsg27"]
+resource_name = "Close"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.48353, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0wsju"]
+resource_name = "Locked_open_attempt"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.0349066, 0), Vector3(0, 0, 0), Vector3(0, 0.0174533, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_thi7p"]
+resource_name = "Open"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.48353, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_k87se"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_usuqw"]
+_data = {
+"Close": SubResource("Animation_nsg27"),
+"Locked_open_attempt": SubResource("Animation_0wsju"),
+"Open": SubResource("Animation_thi7p"),
+"RESET": SubResource("Animation_k87se")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jl7um"]
+size = Vector3(2, 2.5, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_makyy"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vmhmq"]
+material = SubResource("StandardMaterial3D_makyy")
+size = Vector3(0.1, 0.2, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_op21n"]
+albedo_color = Color(0.666711, 0.354957, 0.177402, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rpbxp"]
+material = SubResource("StandardMaterial3D_op21n")
+size = Vector3(2, 2.5, 0.1)
+
+[sub_resource type="Animation" id="Animation_7lyne"]
+resource_name = "Close"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.48353, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_j538j"]
+resource_name = "Locked_open_attempt"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.0349066, 0), Vector3(0, 0, 0), Vector3(0, 0.0174533, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2ind6"]
+resource_name = "Open"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.48353, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5ghho"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i6rl3"]
+_data = {
+"Close": SubResource("Animation_7lyne"),
+"Locked_open_attempt": SubResource("Animation_j538j"),
+"Open": SubResource("Animation_2ind6"),
+"RESET": SubResource("Animation_5ghho")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x1wmn"]
+albedo_color = Color(0.617455, 0.617455, 0.617455, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lv8yr"]
+albedo_color = Color(0.500449, 0.197752, 9.62615e-08, 1)
+
 [node name="Map" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -32,42 +230,372 @@ shadow_enabled = true
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.668, 1, -0.067)
 MOUSE_SENSITIVITY = 0.1
 
-[node name="Floor_Entrance" type="CSGBox3D" parent="."]
+[node name="Interior_01" type="Node" parent="."]
+
+[node name="Entrance" type="Node" parent="Interior_01"]
+
+[node name="Floor_Entrance" type="CSGBox3D" parent="Interior_01/Entrance"]
 transform = Transform3D(1, 0.00020723, -0.000427226, -0.000207149, 1, 0.00016961, 0.000427259, -0.000169503, 1, -7.198, 0, 0)
 use_collision = true
 size = Vector3(20, 0.1, 4.4)
 material = SubResource("StandardMaterial3D_xpuyp")
 
-[node name="Floor_StorageR" type="CSGBox3D" parent="."]
+[node name="Roof_Entrance" type="CSGBox3D" parent="Interior_01/Entrance"]
+transform = Transform3D(1, 0.00020723, -0.000427226, -0.000207149, 1, 0.00016961, 0.000427259, -0.000169503, 1, -7.198, 3.05705, 0)
+use_collision = true
+size = Vector3(20, 0.1, 4.4)
+material = SubResource("StandardMaterial3D_xpuyp")
+
+[node name="Back_Wall" type="CSGBox3D" parent="Interior_01/Entrance"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.74869, 1.5, 0)
+use_collision = true
+size = Vector3(0.219922, 3, 4.4)
+
+[node name="Left_Wall" type="CSGBox3D" parent="Interior_01/Entrance"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.198, 1.5, 2.2)
+use_collision = true
+size = Vector3(0.22, 3, 20)
+
+[node name="Right_Wall" type="CSGBox3D" parent="Interior_01/Entrance"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.61823, 1.5, -2.2)
+use_collision = true
+size = Vector3(0.22, 3, 10.8405)
+
+[node name="Right_Wall2" type="CSGBox3D" parent="Interior_01/Entrance"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9.03697, 2.77423, -2.2)
+use_collision = true
+size = Vector3(0.22, 0.451538, 2.00211)
+
+[node name="Right_Wall3" type="CSGBox3D" parent="Interior_01/Entrance"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13.6324, 1.5, -2.2)
+use_collision = true
+size = Vector3(0.22, 3, 7.20782)
+
+[node name="Storage_Room" type="Node" parent="Interior_01"]
+
+[node name="Floor_StorageR" type="CSGBox3D" parent="Interior_01/Storage_Room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.576, 0, -6.298)
 use_collision = true
 size = Vector3(11.074, 0.1, 8.173)
 
-[node name="Floor_LivingR" type="CSGBox3D" parent="."]
+[node name="Roof_StorageR" type="CSGBox3D" parent="Interior_01/Storage_Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.576, 3.057, -6.298)
+use_collision = true
+size = Vector3(11.074, 0.1, 8.173)
+
+[node name="Wall2" type="CSGBox3D" parent="Interior_01/Storage_Room"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10.1687, 1.5, -6.36903)
+use_collision = true
+size = Vector3(8.15172, 3, 0.131073)
+
+[node name="Wall3" type="CSGBox3D" parent="Interior_01/Storage_Room"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.02862, 1.5, -6.36903)
+use_collision = true
+size = Vector3(8.15172, 3, 0.131073)
+
+[node name="Wall4" type="CSGBox3D" parent="Interior_01/Storage_Room"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.56829, 1.5, -10.3979)
+use_collision = true
+size = Vector3(0.111121, 3, 11.3249)
+
+[node name="Living_Room" type="Node" parent="Interior_01"]
+
+[node name="Floor_LivingR" type="CSGBox3D" parent="Interior_01/Living_Room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.5375, 0, -15.8344)
 use_collision = true
 size = Vector3(36.6713, 0.1, 36.0466)
+material = SubResource("StandardMaterial3D_038og")
 
-[node name="Floor_BathRoom" type="CSGBox3D" parent="."]
+[node name="Wall1" type="CSGBox3D" parent="Interior_01/Living_Room"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -35.537, 1.5, 2.2)
+use_collision = true
+size = Vector3(0.22, 3, 36.671)
+
+[node name="Wall2" type="CSGBox3D" parent="Interior_01/Living_Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.931, 1.5, -13.595)
+use_collision = true
+size = Vector3(0.22, 3, 31.6724)
+
+[node name="Wall3" type="CSGBox3D" parent="Interior_01/Living_Room"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17.218, 1.5, -9.34)
+use_collision = true
+size = Vector3(14.389, 3, 0.05)
+
+[node name="Wall3_2" type="CSGBox3D" parent="Interior_01/Living_Room"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17.218, 1.5, -26.1562)
+use_collision = true
+size = Vector3(15.2345, 3, 0.05)
+
+[node name="Wall3_3" type="CSGBox3D" parent="Interior_01/Living_Room"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17.218, 2.77438, -17.5404)
+use_collision = true
+size = Vector3(2.0367, 0.451233, 0.05)
+
+[node name="Wall4" type="CSGBox3D" parent="Interior_01/Living_Room"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -38.0431, 1.5, -33.855)
+use_collision = true
+size = Vector3(0.22, 3, 31.5947)
+
+[node name="Wall4_2" type="CSGBox3D" parent="Interior_01/Living_Room"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -18.7042, 1.5, -33.855)
+use_collision = true
+size = Vector3(0.22, 3, 3.07953)
+
+[node name="Wall4_3" type="CSGBox3D" parent="Interior_01/Living_Room"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -21.2468, 2.86095, -33.855)
+use_collision = true
+size = Vector3(0.22, 0.278107, 2.00677)
+
+[node name="BathRoom" type="Node" parent="Interior_01"]
+
+[node name="Floor_BathRoom" type="CSGBox3D" parent="Interior_01/BathRoom"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.39, 0, -22.258)
 use_collision = true
 size = Vector3(15.62, 0.1, 23.1887)
+material = SubResource("StandardMaterial3D_i6plp")
 
-[node name="Floor_Closet" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.35262, 0, -42.6656)
+[node name="Wall1" type="CSGBox3D" parent="Interior_01/BathRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.38749, 1.5, -10.6639)
 use_collision = true
-size = Vector3(15.6743, 0.1, 17.6155)
+size = Vector3(15.6451, 3, 0.0443649)
 
-[node name="Floor_BedRoom" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.5161, 0, -42.6656)
+[node name="Wall2" type="CSGBox3D" parent="Interior_01/BathRoom"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17.1699, 1.5, -13.587)
 use_collision = true
-size = Vector3(36.7727, 0.1, 17.6155)
+size = Vector3(5.90399, 3, 0.0689545)
 
-[node name="Floor_Exit" type="CSGBox3D" parent="."]
+[node name="Wall2_2" type="CSGBox3D" parent="Interior_01/BathRoom"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17.1699, 1.5, -26.2124)
+use_collision = true
+size = Vector3(15.3528, 3, 0.0689545)
+
+[node name="Wall2_3" type="CSGBox3D" parent="Interior_01/BathRoom"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17.1699, 2.77591, -17.5458)
+use_collision = true
+size = Vector3(2.00666, 0.448181, 0.0689545)
+
+[node name="Wall3" type="CSGBox3D" parent="Interior_01/BathRoom"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.55934, 1.5, -22.2792)
+use_collision = true
+size = Vector3(23.2135, 3, 0.0443649)
+
+[node name="Wall4" type="CSGBox3D" parent="Interior_01/BathRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.4286, 1.5, -33.8087)
+use_collision = true
+size = Vector3(13.6849, 3, 0.0443649)
+
+[node name="Wall4_2" type="CSGBox3D" parent="Interior_01/BathRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.57949, 2.77795, -33.8087)
+use_collision = true
+size = Vector3(2.01561, 0.444092, 0.0443649)
+
+[node name="Closet" type="Node" parent="Interior_01"]
+
+[node name="Exit" type="Node" parent="Interior_01"]
+
+[node name="Floor_Exit" type="CSGBox3D" parent="Interior_01/Exit"]
 transform = Transform3D(1, 0.00020723, -0.000427226, -0.000207149, 1, 0.00016961, 0.000427259, -0.000169503, 1, -62.9818, -0.000178018, -31.6296)
 use_collision = true
 size = Vector3(18.2813, 0.1, 4.4)
 material = SubResource("StandardMaterial3D_xpuyp")
 
-[node name="Steel_door_01_exit" parent="." instance=ExtResource("2_suvle")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -71.96, 1.3, -31.63)
+[node name="Left_Wall" type="CSGBox3D" parent="Interior_01/Exit"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -62.9788, 1.5, -29.323)
+use_collision = true
+size = Vector3(0.22, 3, 18.281)
+
+[node name="Right_Wall" type="CSGBox3D" parent="Interior_01/Exit"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -62.9788, 1.5, -33.8548)
+use_collision = true
+size = Vector3(0.22, 3, 18.281)
+
+[node name="Back_Wall" type="CSGBox3D" parent="Interior_01/Exit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.0978, 1.5, -30.0166)
+use_collision = true
+size = Vector3(0.219922, 3, 1.20083)
+
+[node name="Back_Wall2" type="CSGBox3D" parent="Interior_01/Exit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.098, 1.5, -33.23)
+use_collision = true
+size = Vector3(0.219922, 3, 1.20083)
+
+[node name="Back_Wall3" type="CSGBox3D" parent="Interior_01/Exit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.098, 2.78149, -31.6244)
+use_collision = true
+size = Vector3(0.219922, 0.437012, 2.00584)
+
+[node name="Doors" type="Node" parent="Interior_01"]
+
+[node name="Exit" parent="Interior_01/Doors" instance=ExtResource("2_suvle")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -72.1157, 1.3, -31.63)
+
+[node name="Entrance" type="Node3D" parent="Interior_01/Doors"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.64323, 1.3, 0)
+
+[node name="Hinge" type="Node3D" parent="Interior_01/Doors/Entrance"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Interior_01/Doors/Entrance/Hinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+script = ExtResource("5_qxq0v")
+prompt_message = " "
+prompt_input = "E"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interior_01/Doors/Entrance/Hinge/StaticBody3D"]
+shape = SubResource("BoxShape3D_frb1i")
+
+[node name="Knob" type="MeshInstance3D" parent="Interior_01/Doors/Entrance/Hinge/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76923, -0.209894, 0)
+mesh = SubResource("BoxMesh_dhye1")
+skeleton = NodePath("")
+
+[node name="Door" type="MeshInstance3D" parent="Interior_01/Doors/Entrance/Hinge/StaticBody3D"]
+mesh = SubResource("BoxMesh_qy7x3")
+skeleton = NodePath("")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Interior_01/Doors/Entrance"]
+libraries = {
+"": SubResource("AnimationLibrary_usuqw")
+}
+
+[node name="Storage_Room_Door" type="Node3D" parent="Interior_01/Doors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.03666, 1.3, -2.21156)
+
+[node name="Hinge" type="Node3D" parent="Interior_01/Doors/Storage_Room_Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Interior_01/Doors/Storage_Room_Door/Hinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+script = ExtResource("4_nyknk")
+prompt_message = " "
+prompt_input = "E"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interior_01/Doors/Storage_Room_Door/Hinge/StaticBody3D"]
+shape = SubResource("BoxShape3D_jl7um")
+
+[node name="Knob" type="MeshInstance3D" parent="Interior_01/Doors/Storage_Room_Door/Hinge/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76923, -0.209894, 0)
+mesh = SubResource("BoxMesh_vmhmq")
+skeleton = NodePath("../Door")
+
+[node name="Door" type="MeshInstance3D" parent="Interior_01/Doors/Storage_Room_Door/Hinge/StaticBody3D"]
+mesh = SubResource("BoxMesh_rpbxp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Interior_01/Doors/Storage_Room_Door"]
+libraries = {
+"": SubResource("AnimationLibrary_i6rl3")
+}
+
+[node name="Timer" type="Timer" parent="Interior_01/Doors/Storage_Room_Door"]
+wait_time = 2.0
+
+[node name="BedRoom_Door" type="Node3D" parent="Interior_01/Doors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.2464, 1.3, -33.855)
+
+[node name="Hinge" type="Node3D" parent="Interior_01/Doors/BedRoom_Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Interior_01/Doors/BedRoom_Door/Hinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+script = ExtResource("5_gqgvw")
+prompt_message = " "
+prompt_input = "E"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interior_01/Doors/BedRoom_Door/Hinge/StaticBody3D"]
+shape = SubResource("BoxShape3D_jl7um")
+
+[node name="Knob" type="MeshInstance3D" parent="Interior_01/Doors/BedRoom_Door/Hinge/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76923, -0.209894, 0)
+mesh = SubResource("BoxMesh_vmhmq")
+skeleton = NodePath("../Door")
+
+[node name="Door" type="MeshInstance3D" parent="Interior_01/Doors/BedRoom_Door/Hinge/StaticBody3D"]
+mesh = SubResource("BoxMesh_rpbxp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Interior_01/Doors/BedRoom_Door"]
+libraries = {
+"": SubResource("AnimationLibrary_i6rl3")
+}
+
+[node name="Timer" type="Timer" parent="Interior_01/Doors/BedRoom_Door"]
+wait_time = 2.0
+
+[node name="BathRoom_Door" type="Node3D" parent="Interior_01/Doors"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -17.1798, 1.3, -17.5328)
+
+[node name="Hinge" type="Node3D" parent="Interior_01/Doors/BathRoom_Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Interior_01/Doors/BathRoom_Door/Hinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+script = ExtResource("5_gqgvw")
+prompt_message = " "
+prompt_input = "E"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interior_01/Doors/BathRoom_Door/Hinge/StaticBody3D"]
+shape = SubResource("BoxShape3D_jl7um")
+
+[node name="Knob" type="MeshInstance3D" parent="Interior_01/Doors/BathRoom_Door/Hinge/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76923, -0.209894, 0)
+mesh = SubResource("BoxMesh_vmhmq")
+skeleton = NodePath("../Door")
+
+[node name="Door" type="MeshInstance3D" parent="Interior_01/Doors/BathRoom_Door/Hinge/StaticBody3D"]
+mesh = SubResource("BoxMesh_rpbxp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Interior_01/Doors/BathRoom_Door"]
+libraries = {
+"": SubResource("AnimationLibrary_i6rl3")
+}
+
+[node name="Timer" type="Timer" parent="Interior_01/Doors/BathRoom_Door"]
+wait_time = 2.0
+
+[node name="Closet_Door" type="Node3D" parent="Interior_01/Doors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.58167, 1.3, -33.855)
+
+[node name="Hinge" type="Node3D" parent="Interior_01/Doors/Closet_Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Interior_01/Doors/Closet_Door/Hinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+script = ExtResource("5_gqgvw")
+prompt_message = " "
+prompt_input = "E"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interior_01/Doors/Closet_Door/Hinge/StaticBody3D"]
+shape = SubResource("BoxShape3D_jl7um")
+
+[node name="Knob" type="MeshInstance3D" parent="Interior_01/Doors/Closet_Door/Hinge/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76923, -0.209894, 0)
+mesh = SubResource("BoxMesh_vmhmq")
+skeleton = NodePath("../Door")
+
+[node name="Door" type="MeshInstance3D" parent="Interior_01/Doors/Closet_Door/Hinge/StaticBody3D"]
+mesh = SubResource("BoxMesh_rpbxp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Interior_01/Doors/Closet_Door"]
+libraries = {
+"": SubResource("AnimationLibrary_i6rl3")
+}
+
+[node name="Timer" type="Timer" parent="Interior_01/Doors/Closet_Door"]
+wait_time = 2.0
+
+[node name="Floor_Closet" type="CSGBox3D" parent="Interior_01"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.35262, 0, -42.6656)
+use_collision = true
+size = Vector3(15.6743, 0.1, 17.6155)
+material = SubResource("StandardMaterial3D_x1wmn")
+
+[node name="Floor_BedRoom" type="CSGBox3D" parent="Interior_01"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.5161, 0, -42.6656)
+use_collision = true
+size = Vector3(36.7727, 0.1, 17.6155)
+material = SubResource("StandardMaterial3D_lv8yr")
+
+[connection signal="interacted" from="Interior_01/Doors/Entrance/Hinge/StaticBody3D" to="Interior_01/Doors/Entrance/Hinge/StaticBody3D" method="_on_interacted"]
+[connection signal="interacted" from="Interior_01/Doors/Storage_Room_Door/Hinge/StaticBody3D" to="Interior_01/Doors/Storage_Room_Door/Hinge/StaticBody3D" method="_on_interacted"]
+[connection signal="interacted" from="Interior_01/Doors/BedRoom_Door/Hinge/StaticBody3D" to="Interior_01/Doors/BedRoom_Door/Hinge/StaticBody3D" method="_on_interacted"]
+[connection signal="interacted" from="Interior_01/Doors/BathRoom_Door/Hinge/StaticBody3D" to="Interior_01/Doors/BathRoom_Door/Hinge/StaticBody3D" method="_on_interacted"]
+[connection signal="interacted" from="Interior_01/Doors/Closet_Door/Hinge/StaticBody3D" to="Interior_01/Doors/Closet_Door/Hinge/StaticBody3D" method="_on_interacted"]

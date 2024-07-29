@@ -14,13 +14,16 @@ func change_scene(target: String) -> void:
 func lightning_sequence():
 	while true:
 		if can_strike:
+			var random_generator3 = RandomNumberGenerator.new()
+			var energy = random_generator3.randi_range(5.0, 3000.0)
 			var random_generator = RandomNumberGenerator.new()
 			var strike_time = random_generator.randi_range(1.0, 5.0)
 			var random_generator2 = RandomNumberGenerator.new()
-			var hold_time = random_generator.randi_range(0.1, 1.0)
+			var hold_time = random_generator2.randi_range(0.1, 1.0)
 			await get_tree().create_timer(strike_time).timeout
 			
 			# Lightning strike
+			lighting.light_energy = energy
 			lighting.show()
 			await get_tree().create_timer(hold_time).timeout
 			lighting.hide()

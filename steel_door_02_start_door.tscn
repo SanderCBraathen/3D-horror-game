@@ -1,6 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://bi7ldrb8x1tq0"]
+[gd_scene load_steps=12 format=3 uid="uid://8x88kr8nsp7s"]
 
-[ext_resource type="Script" path="res://exit_door.gd" id="1_s77ru"]
+[ext_resource type="Script" path="res://Start_lock_door_02.gd" id="1_7wq6h"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_frb1i"]
 size = Vector3(2, 2.5, 0.1)
@@ -12,10 +12,11 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("StandardMaterial3D_1kx8b")
 size = Vector3(0.1, 0.2, 0.3)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_px5oa"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_725gu"]
+albedo_color = Color(0.103744, 0.103744, 0.103744, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_g0u4f"]
-material = SubResource("StandardMaterial3D_px5oa")
+[sub_resource type="BoxMesh" id="BoxMesh_qy7x3"]
+material = SubResource("StandardMaterial3D_725gu")
 size = Vector3(2, 2.5, 0.1)
 
 [sub_resource type="Animation" id="Animation_nsg27"]
@@ -89,16 +90,14 @@ _data = {
 "RESET": SubResource("Animation_k87se")
 }
 
-[node name="Steel_door_01_exit" type="Node3D"]
+[node name="Steel_door_02_start_door" type="Node3D"]
 
 [node name="Hinge" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Hinge"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
-script = ExtResource("1_s77ru")
-prompt_message = " "
-prompt_input = "E"
+script = ExtResource("1_7wq6h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hinge/StaticBody3D"]
 shape = SubResource("BoxShape3D_frb1i")
@@ -106,10 +105,11 @@ shape = SubResource("BoxShape3D_frb1i")
 [node name="Knob" type="MeshInstance3D" parent="Hinge/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76923, -0.209894, 0)
 mesh = SubResource("BoxMesh_dhye1")
-skeleton = NodePath("../Door")
+skeleton = NodePath("")
 
 [node name="Door" type="MeshInstance3D" parent="Hinge/StaticBody3D"]
-mesh = SubResource("BoxMesh_g0u4f")
+mesh = SubResource("BoxMesh_qy7x3")
+skeleton = NodePath("")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
