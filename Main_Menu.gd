@@ -1,5 +1,6 @@
 extends Node3D
 
+
 @onready var lighting = $Lighting
 var can_strike = true
 
