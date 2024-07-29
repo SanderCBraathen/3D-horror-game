@@ -177,9 +177,9 @@ spot_angle = 59.55
 spot_angle_attenuation = 0.774622
 
 [node name="Lighting" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.91334, 0.407199, 0, -0.407199, -0.91334, -3.74056, 4.16645, -10.034)
+transform = Transform3D(1, 0, 0, 0, -0.91334, 0.407199, 0, -0.407199, -0.91334, -3.426, 2.616, -17.074)
 light_color = Color(0.266701, 0.484858, 1, 1)
-light_energy = 500.0
+light_energy = 2000.0
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 light_specular = 0.0
