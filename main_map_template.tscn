@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://bik8r66p6inv6"]
+
+[ext_resource type="PackedScene" uid="uid://bey2o2g8p2lh1" path="res://Simple 1st person/player.tscn" id="1_dtiux"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xcu5l"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_18pvv"]
+sky_material = SubResource("ProceduralSkyMaterial_xcu5l")
+
+[sub_resource type="Environment" id="Environment_xyhwi"]
+background_mode = 2
+sky = SubResource("Sky_18pvv")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xpuyp"]
+albedo_color = Color(0.29219, 0.29219, 0.29219, 1)
+
+[node name="Map" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xyhwi")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_dtiux")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.668, 1, -0.067)
+
+[node name="Floor_Entrance" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0.00020723, -0.000427226, -0.000207149, 1, 0.00016961, 0.000427259, -0.000169503, 1, -7.198, 0, 0)
+use_collision = true
+size = Vector3(20, 0.1, 4.4)
+material = SubResource("StandardMaterial3D_xpuyp")
+
+[node name="Floor_StorageR" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.576, 0, -6.298)
+use_collision = true
+size = Vector3(11.074, 0.1, 8.173)
+
+[node name="Floor_LivingR" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.5375, 0, -15.8344)
+use_collision = true
+size = Vector3(36.6713, 0.1, 36.0466)
+
+[node name="Floor_BathRoom" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.39, 0, -22.258)
+use_collision = true
+size = Vector3(15.62, 0.1, 23.1887)
+
+[node name="Floor_Closet" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.35262, 0, -42.6656)
+use_collision = true
+size = Vector3(15.6743, 0.1, 17.6155)
+
+[node name="Floor_BedRoom" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.5161, 0, -42.6656)
+use_collision = true
+size = Vector3(36.7727, 0.1, 17.6155)
+
+[node name="Floor_Exit" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0.00020723, -0.000427226, -0.000207149, 1, 0.00016961, 0.000427259, -0.000169503, 1, -62.9818, -0.000178018, -31.6296)
+use_collision = true
+size = Vector3(18.2813, 0.1, 4.4)
+material = SubResource("StandardMaterial3D_xpuyp")
