@@ -1,0 +1,75 @@
+[gd_scene load_steps=8 format=3 uid="uid://bey2o2g8p2lh1"]
+
+[ext_resource type="Script" path="res://Simple 1st person/player.gd" id="1_42m7l"]
+[ext_resource type="PackedScene" uid="uid://wg6tol8j0jq0" path="res://interact_ray.tscn" id="2_5tx1x"]
+[ext_resource type="Script" path="res://Simple 1st person/UI.gd" id="3_kmftd"]
+[ext_resource type="Texture2D" uid="uid://bjdj6d2x5nu4l" path="res://textures/kenney_cursor-pack/Vector/Basic/target_b.svg" id="4_rpudv"]
+[ext_resource type="Texture2D" uid="uid://c2vrj0l3mfwsi" path="res://textures/kenney_cursor-pack/Vector/Basic/target_a.svg" id="5_71r3a"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_76528"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_r6wgk"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("CAMERA_CONTROLLER")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_42m7l")
+CAMERA_CONTROLLER = NodePath("CameraController/Camera3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_76528")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_r6wgk")
+skeleton = NodePath("../..")
+
+[node name="CameraController" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.762507, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraController"]
+
+[node name="InteractRay" parent="CameraController/Camera3D" instance=ExtResource("2_5tx1x")]
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="CameraController/Camera3D"]
+update_mode = 1
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_kmftd")
+
+[node name="CrossHair UM" type="TextureRect" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_rpudv")
+
+[node name="CrossHair M" type="TextureRect" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_71r3a")
