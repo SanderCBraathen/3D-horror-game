@@ -1,7 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://b8i8miirre0qr"]
+[gd_scene load_steps=19 format=3 uid="uid://b8i8miirre0qr"]
 
 [ext_resource type="Script" path="res://Main_Menu.gd" id="1_226ye"]
-[ext_resource type="AudioStream" uid="uid://bwxge403w57ew" path="res://symphony-of-fears-216407.mp3" id="2_k2qnq"]
+[ext_resource type="AudioStream" uid="uid://bwxge403w57ew" path="res://Audio/symphony-of-fears-216407.mp3" id="2_xic86"]
+[ext_resource type="AudioStream" uid="uid://biarqjnjr1f8t" path="res://Audio/night-showers-and-lightning-145471.mp3" id="3_u8wk1"]
+[ext_resource type="AudioStream" uid="uid://bljasjbe3y30p" path="res://Audio/car-passing-by-6203.mp3" id="4_fiaae"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5bb1o"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -112,8 +114,19 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 light_energy = 0.0
 shadow_enabled = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_k2qnq")
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_xic86")
+pitch_scale = 0.8
+autoplay = true
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_u8wk1")
+volume_db = -20.0
+autoplay = true
+
+[node name="Car_ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_fiaae")
+volume_db = -20.0
 autoplay = true
 
 [node name="UI" type="Control" parent="."]
@@ -166,7 +179,7 @@ spot_angle_attenuation = 0.774622
 [node name="Lighting" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.91334, 0.407199, 0, -0.407199, -0.91334, -3.74056, 4.16645, -10.034)
 light_color = Color(0.266701, 0.484858, 1, 1)
-light_energy = 100.0
+light_energy = 500.0
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 light_specular = 0.0
@@ -179,9 +192,9 @@ distance_fade_begin = 0.0
 distance_fade_shadow = 4096.0
 distance_fade_length = 4064.63
 spot_range = 4088.45
-spot_attenuation = 0.0669861
-spot_angle = 74.1
-spot_angle_attenuation = 0.0407112
+spot_attenuation = 1.94484e-05
+spot_angle = 75.92
+spot_angle_attenuation = 1.79156e-05
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
