@@ -27,6 +27,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.762507, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraController"]
 
+[node name="Flashlight" type="SpotLight3D" parent="CameraController/Camera3D"]
+light_energy = 5.0
+spot_range = 10.0
+spot_attenuation = 0.466516
+spot_angle = 32.21
+spot_angle_attenuation = 2.21914
+
 [node name="InteractRay" parent="CameraController/Camera3D" instance=ExtResource("2_5tx1x")]
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="CameraController/Camera3D"]
