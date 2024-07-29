@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+@onready var flashlight = $CameraController/Camera3D/Flashlight
+
 @export var SPEED : float = 5.0
 @export var JUMP_VELOCITY : float = 4.5
 @export var MOUSE_SENSITIVITY : float = 0.5
@@ -16,6 +18,8 @@ var _camera_rotation : Vector3
 
 var can_interact = false
 
+var flashlight_enabled = false
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -26,11 +30,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		_rotation_input = -event.relative.x * MOUSE_SENSITIVITY
 		_tilt_input = -event.relative.y * MOUSE_SENSITIVITY
 		
-#func _input(event):
-	#
+func _input(event):
 	#if event.is_action_pressed("exit"):
 		#get_tree().quit()
 		
+	if event.is_action_pressed("Flashlight"):
+		if flashlight_enabled == false:
+			flashlight.show()
+			flashlight_enabled = true
+		else:
+			flashlight.hide()
+			flashlight_enabled = false
+
+
+
 func _update_camera(delta):
 	
 	# Rotates camera using euler rotation
@@ -50,7 +63,7 @@ func _update_camera(delta):
 	_tilt_input = 0.0
 	
 func _ready():
-
+	flashlight.hide()
 	# Get mouse input
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
