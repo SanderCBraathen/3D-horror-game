@@ -17,14 +17,14 @@ func lightning_sequence():
 			var random_generator = RandomNumberGenerator.new()
 			var strike_time = random_generator.randi_range(1.0, 5.0)
 			var random_generator2 = RandomNumberGenerator.new()
-			var hold_time = random_generator.randi_range(0.2, 0.8)
+			var hold_time = random_generator.randi_range(0.1, 1.0)
 			await get_tree().create_timer(strike_time).timeout
 			
 			# Lightning strike
 			lighting.show()
 			await get_tree().create_timer(hold_time).timeout
 			lighting.hide()
-			await get_tree().create_timer(0.05).timeout
+			await get_tree().create_timer(0.08).timeout
 			lighting.show()
 			await get_tree().create_timer(0.09).timeout
 			lighting.hide()
