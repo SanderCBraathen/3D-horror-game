@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://boyjpm1bqnxys"]
 
 [ext_resource type="Script" path="res://Credits.gd" id="1_2jlfh"]
-[ext_resource type="AudioStream" uid="uid://x06iuqt641t5" path="res://Audio/Art of Silence - Dramatic  Cinematic [Free to use].mp3" id="2_81vhd"]
+[ext_resource type="AudioStream" uid="uid://dhnkjxatytpke" path="res://Audio/MELANCHOLIA Music Box Sad, creepy song.mp3" id="2_tfhgi"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8b0t6"]
 size = Vector3(100, 1, 1)
@@ -64,6 +64,7 @@ _data = {
 script = ExtResource("1_2jlfh")
 
 [node name="Thx For Playing" type="Label" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -97,5 +98,5 @@ libraries = {
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_81vhd")
+stream = ExtResource("2_tfhgi")
 autoplay = true
