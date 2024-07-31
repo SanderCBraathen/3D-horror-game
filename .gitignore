@@ -1,3 +1,4 @@
 # Godot 4+ specific ignores
 .godot/
 textures/worn_planks_8k/textures/worn_planks_ao_8k.png
+textures/worn_planks_8k/textures/worn_planks_arm_8k.png
