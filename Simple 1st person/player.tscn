@@ -50,6 +50,7 @@ mouse_filter = 2
 script = ExtResource("3_kmftd")
 
 [node name="CrossHair UM" type="TextureRect" parent="UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -66,6 +67,7 @@ mouse_filter = 2
 texture = ExtResource("4_rpudv")
 
 [node name="CrossHair M" type="TextureRect" parent="UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
