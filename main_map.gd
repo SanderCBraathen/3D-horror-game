@@ -3,11 +3,11 @@ extends Node3D
 @onready var Interior01 = $Interior_01
 var hidden = false
 var showing = true
+@onready var FPS = $Label
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 #func _input(event):
 	#if showing == true:
