@@ -6,7 +6,6 @@ var closed = true
 var locked = false
 var can_interact = true
 
-@onready var timer = $"../../Timer"
 @onready var animationplayer = $"../../AnimationPlayer"
 
 
