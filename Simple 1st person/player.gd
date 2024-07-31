@@ -19,6 +19,7 @@ var _camera_rotation : Vector3
 var can_interact = false
 
 var flashlight_enabled = false
+var flashlight_allowed = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -33,14 +34,14 @@ func _unhandled_input(event: InputEvent) -> void:
 func _input(event):
 	#if event.is_action_pressed("exit"):
 		#get_tree().quit()
-		
-	if event.is_action_pressed("Flashlight"):
-		if flashlight_enabled == false:
-			flashlight.show()
-			flashlight_enabled = true
-		else:
-			flashlight.hide()
-			flashlight_enabled = false
+	if flashlight_allowed == true:
+		if event.is_action_pressed("Flashlight"):
+			if flashlight_enabled == false:
+				flashlight.show()
+				flashlight_enabled = true
+			else:
+				flashlight.hide()
+				flashlight_enabled = false
 
 
 
